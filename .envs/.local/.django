@@ -1,0 +1,6 @@
+# General
+# ------------------------------------------------------------------------------
+USE_DOCKER=yes
+IPYTHONDIR=/app/.ipython
+SIGNING_KEY=XSm8lLNS3Jl9zrOLGBN27QjnDPmaX05PRJtnEE9B7KUToG43AzE
+
