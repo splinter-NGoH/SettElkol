@@ -4,28 +4,27 @@ from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+
+
+
 User = get_user_model()
 
 
-class UserAdminChangeForm(admin_forms.UserChangeForm):
-    class Meta(admin_forms.UserChangeForm.Meta):
+class UserChangeForm(admin_forms.UserChangeForm):
+    class Meta(admin_forms.UserChangeForm):
         model = User
+        fields = "__all__"
 
 
-class UserAdminCreationForm(admin_forms.UserCreationForm):
-    """
-    Form for User Creation in the Admin Area.
-    To change user signup, see UserSignupForm and UserSocialSignupForm.
-    """
-
-    class Meta(admin_forms.UserCreationForm.Meta):
+class UserCreationForm(admin_forms.UserCreationForm):
+    class Meta(admin_forms.UserCreationForm):
         model = User
-
+        fields = "__all__"
         error_messages = {
-            "username": {"unique": _("This username has already been taken.")}
+            "username": {
+                "unique": _("This username has already taken"),
+            },
         }
-
-
 class UserSignupForm(SignupForm):
     """
     Form that will be rendered on a user sign up section/screen.
