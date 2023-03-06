@@ -69,7 +69,7 @@ THIRD_PARTY_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
-    "allauth.socialaccount",
+    # "allauth.socialaccount",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -328,4 +328,6 @@ DJOSER = {
         "current_user": "qr_code.users.api.serializers.UserSerializer",
         "user_delete": "djoser.serializers.UserDeleteSerializer",
     },
+
+
 }
