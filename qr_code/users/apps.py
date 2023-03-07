@@ -8,6 +8,6 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         try:
-            import qr_code.users.signals  # noqa F401
+            import qr_code.users.signals  
         except ImportError:
             pass
