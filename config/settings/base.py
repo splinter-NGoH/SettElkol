@@ -80,7 +80,10 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "qr_code.users",
-    # Your stuff: custom apps go here
+    "qr_code.common",
+    "qr_code.students",
+    "qr_code.doctors",
+    "qr_code.teaching_assistance",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

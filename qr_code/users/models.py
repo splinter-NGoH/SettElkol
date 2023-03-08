@@ -14,6 +14,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         verbose_name=_("username"), db_index=True, max_length=255, unique=True
     )
+    student_id = models.BigIntegerField(blank=True, null=True)
     first_name = models.CharField(verbose_name=_("first name"), max_length=50)
     last_name = models.CharField(verbose_name=_("last name"), max_length=50)
     email = models.EmailField(
@@ -24,7 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name","last_name"]
+    REQUIRED_FIELDS = ["username", "first_name"]
 
     objects = CustomUserManger()
 

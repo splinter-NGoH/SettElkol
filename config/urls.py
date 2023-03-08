@@ -35,6 +35,11 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    # apps urls
+    # path("api/v1/doctors/", include("qr_code.doctors.urls")),
+    path("api/v1/", include("users.api.urls")),
+
+
 ]
 
 if settings.DEBUG:
@@ -62,3 +67,6 @@ if settings.DEBUG:
         import debug_toolbar
 
         urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+admin.site.site_header = "Qr Attendance"
+admin.site.site_title = "Qr Attendance Admin Portal"
+admin.site.index_title = "Welcome to the Qr Attendance Portal"

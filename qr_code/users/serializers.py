@@ -1,21 +1,18 @@
 from django.contrib.auth import get_user_model
+from django_countries.serializer_fields import CountryField
 from djoser.serializers import UserCreateSerializer
+from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 
 User = get_user_model()
 
-class CreateUserSerializer(UserCreateSerializer):
-    student_id = serializers.CharField(required=False,default=None)
-    last_name = serializers.CharField(required=False,default="")
- 
-    class Meta(UserCreateSerializer.Meta):
-        model = User
-        fields = ["id", "username", "email", "first_name", "last_name", "password", "student_id"]
-    # def perform_create(self, validated_data):
-    #     super(CreateUserSerializer,self).perform_create(validated_data)
-    #     print(validated_data)
 
 class UserSerializer(serializers.ModelSerializer):
+    gender = serializers.CharField(source="profile.gender")
+    phone_number = PhoneNumberField(source="profile.phone_number")
+    profile_photo = serializers.ReadOnlyField(source="profile.profile_photo")
+    country = CountryField(source="profile.country")
+    city = serializers.CharField(source="profile.city")
     first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
     full_name = serializers.SerializerMethodField()
@@ -54,3 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
         return representation
 
 
+class CreateUserSerializer(UserCreateSerializer):
+    class Meta(UserCreateSerializer.Meta):
+        model = User
+        fields = ["id", "username", "email", "first_name", "last_name", "password", "student_id"]
