@@ -21,7 +21,6 @@ class UserCreationForm(admin_forms.UserCreationForm):
     class Meta(admin_forms.UserCreationForm):
         model = User
         fields = "__all__"
-        exclude = ("last_name",)
         error_messages = {
             "username": {
                 "unique": _("This username has already taken"),

@@ -4,27 +4,60 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django_countries.fields import CountryField
 
 from .managers import CustomUserManger
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    class Gender(models.TextChoices):
+        MALE = "male", _("male")
+        FEMALE = "female", _("female")
+        OTHER = "other", _("other")
+
+    class UserType(models.TextChoices):
+        CHEF = "chef", _("chef")
+        CUSTOMER = "customer", _("customer")
+        GUEST = "guest", _("guest")
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     username = models.CharField(
         verbose_name=_("username"), db_index=True, max_length=255, unique=True
     )
     first_name = models.CharField(verbose_name=_("first name"), max_length=50)
-    last_name = models.CharField(verbose_name=_("last name"), max_length=50)
+    last_name = models.CharField(verbose_name=_("last name"), max_length=50, blank=True, null=True)
     email = models.EmailField(
         verbose_name=_("email address"), db_index=True, unique=True
+    )
+    user_type = models.CharField(
+        verbose_name=_("User Type"),
+        choices=UserType.choices,
+        default=UserType.CUSTOMER,
+        max_length=20,
+
+    )
+    country = CountryField(
+        verbose_name=_("country"), default="EG", blank=False, null=False
+    )
+    city = models.CharField(
+        verbose_name=_("city"),
+        max_length=180,
+        default="Egypt",
+        blank=False,
+        null=False,
+    )
+    gender = models.CharField(
+        verbose_name=_("gender"),
+        choices=Gender.choices,
+        default=Gender.MALE,
+        max_length=20,
     )
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name"]
+    REQUIRED_FIELDS = ["username", "first_name", "user_type", "country","gender"]
 
     objects = CustomUserManger()
 

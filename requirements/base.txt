@@ -24,3 +24,9 @@ drf-spectacular==0.25.1  # https://github.com/tfranzel/drf-spectacular
 djoser
 djangorestframework-simplejwt
 PyJWT
+django-countries
+django-phonenumber-field
+phonenumbers==8.12.33
+drf-yasg
+
+Pillow

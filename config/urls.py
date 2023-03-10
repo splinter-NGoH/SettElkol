@@ -6,6 +6,21 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Sett Elkol API",
+        default_version="v1",
+        description="API endpoints for the Sett Elkol",
+        contact=openapi.Contact(email="ahmedmansy265@gmail.com"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -38,7 +53,9 @@ urlpatterns += [
     # apps urls
     # path("api/v1/doctors/", include("sett_elkol.doctors.urls")),
     path("api/v1/", include("users.api.urls")),
-
+    path("api/v1/customer-profiles/", include("sett_elkol.customer.urls")),
+    path("api/v1/chef-profiles/", include("sett_elkol.chef.urls")),
+    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 
 ]
 

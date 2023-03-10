@@ -11,3 +11,4 @@ class UsersConfig(AppConfig):
             import sett_elkol.users.signals  
         except ImportError:
             pass
+

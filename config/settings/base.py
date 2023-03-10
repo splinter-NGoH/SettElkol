@@ -31,6 +31,8 @@ LANGUAGE_CODE = "en-us"
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
+USE_L10N = True
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
@@ -70,6 +72,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     # "allauth.socialaccount",
+    "drf_yasg", 
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -81,6 +84,17 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "sett_elkol.users",
     "sett_elkol.common",
+    "sett_elkol.cart",
+    "sett_elkol.chef",
+    "sett_elkol.customer",
+    "sett_elkol.deliveryman",
+    "sett_elkol.meal",
+    "sett_elkol.orders",
+    "sett_elkol.payment",
+    "sett_elkol.pickup",
+    "sett_elkol.rate",
+    "sett_elkol.shipment",
+    "sett_elkol.trackorder",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
