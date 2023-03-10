@@ -1,9 +1,9 @@
-.. qr_code documentation master file, created by
+.. sett_elkol documentation master file, created by
    sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to qr_code's documentation!
+Welcome to sett_elkol's documentation!
 ======================================================================
 
 .. toctree::

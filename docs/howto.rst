@@ -4,7 +4,7 @@ How To - Project Documentation
 Get Started
 ----------------------------------------------------------------------
 
-Documentation can be written as rst files in `qr_code/docs`.
+Documentation can be written as rst files in `sett_elkol/docs`.
 
 
 To build and serve docs, use the commands::

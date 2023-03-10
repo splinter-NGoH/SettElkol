@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from qr_code.users.api.views import UserViewSet
+from sett_elkol.users.api.views import UserViewSet
 
 if settings.DEBUG:
     router = DefaultRouter()

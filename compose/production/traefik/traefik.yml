@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`qr-code.com`) || Host(`www.qr-code.com`)"
+      rule: "Host(`sett_elkol.com`) || Host(`www.sett_elkol.com`)"
       entryPoints:
         - web-secure
       middlewares:

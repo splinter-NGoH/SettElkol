@@ -7,8 +7,8 @@ from datetime import timedelta
 import environ
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# qr_code/
-APPS_DIR = BASE_DIR / "qr_code"
+# sett_elkol/
+APPS_DIR = BASE_DIR / "sett_elkol"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -79,11 +79,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "qr_code.users",
-    "qr_code.common",
-    "qr_code.students",
-    "qr_code.doctors",
-    "qr_code.teaching_assistance",
+    "sett_elkol.users",
+    "sett_elkol.common",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -91,7 +88,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "qr_code.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "sett_elkol.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -186,7 +183,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "qr_code.users.context_processors.allauth_settings",
+                "sett_elkol.users.context_processors.allauth_settings",
             ],
         },
     }
@@ -269,13 +266,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "qr_code.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "sett_elkol.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-ACCOUNT_FORMS = {"signup": "qr_code.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "sett_elkol.users.forms.UserSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "qr_code.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "sett_elkol.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-SOCIALACCOUNT_FORMS = {"signup": "qr_code.users.forms.UserSocialSignupForm"}
+SOCIALACCOUNT_FORMS = {"signup": "sett_elkol.users.forms.UserSocialSignupForm"}
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
@@ -294,8 +291,8 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
 SPECTACULAR_SETTINGS = {
-    "TITLE": "qr_code API",
-    "DESCRIPTION": "Documentation of API endpoints of qr_code",
+    "TITLE": "sett_elkol API",
+    "DESCRIPTION": "Documentation of API endpoints of sett_elkol",
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
@@ -326,9 +323,9 @@ DJOSER = {
     "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
     "SERIALIZERS": {
-        "user_create": "qr_code.users.api.serializers.CreateUserSerializer",
-        "user": "qr_code.users.api.serializers.UserSerializer",
-        "current_user": "qr_code.users.api.serializers.UserSerializer",
+        "user_create": "sett_elkol.users.api.serializers.CreateUserSerializer",
+        "user": "sett_elkol.users.api.serializers.UserSerializer",
+        "current_user": "sett_elkol.users.api.serializers.UserSerializer",
         "user_delete": "djoser.serializers.UserDeleteSerializer",
     },
 

@@ -24,8 +24,8 @@ if __name__ == "__main__":
         raise
 
     # This allows easy placement of apps within the interior
-    # qr_code directory.
+    # sett_elkol directory.
     current_path = Path(__file__).parent.resolve()
-    sys.path.append(str(current_path / "qr_code"))
+    sys.path.append(str(current_path / "sett_elkol"))
 
     execute_from_command_line(sys.argv)

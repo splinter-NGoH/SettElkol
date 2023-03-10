@@ -10,14 +10,14 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     # Activate Account
-    path("activate/", include("qr_code.users.urls", namespace="activation")),
+    path("activate/", include("sett_elkol.users.urls", namespace="activation")),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    path("users/", include("qr_code.users.urls", namespace="users")),
+    path("users/", include("sett_elkol.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -36,7 +36,7 @@ urlpatterns += [
         name="api-docs",
     ),
     # apps urls
-    # path("api/v1/doctors/", include("qr_code.doctors.urls")),
+    # path("api/v1/doctors/", include("sett_elkol.doctors.urls")),
     path("api/v1/", include("users.api.urls")),
 
 
@@ -67,6 +67,6 @@ if settings.DEBUG:
         import debug_toolbar
 
         urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
-admin.site.site_header = "Qr Attendance"
-admin.site.site_title = "Qr Attendance Admin Portal"
-admin.site.index_title = "Welcome to the Qr Attendance Portal"
+admin.site.site_header = "Sett Elkol"
+admin.site.site_title = "Sett Elkol Admin Portal"
+admin.site.index_title = "Welcome to the Sett Elkol Portal"

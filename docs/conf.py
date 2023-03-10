@@ -26,7 +26,7 @@ django.setup()
 
 # -- Project information -----------------------------------------------------
 
-project = "qr_code"
+project = "sett_elkol"
 copyright = """2023, Amr Tarek"""
 author = "Amr Tarek"
 
