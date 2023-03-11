@@ -56,7 +56,7 @@ urlpatterns += [
     path("api/v1/customer-profiles/", include("sett_elkol.customer.urls")),
     path("api/v1/chef-profiles/", include("sett_elkol.chef.urls")),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-
+    path("api/v1/meals/", include("sett_elkol.meal.urls")),
 ]
 
 if settings.DEBUG:
