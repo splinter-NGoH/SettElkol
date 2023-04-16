@@ -171,7 +171,7 @@ LOGGING = {
 # -------------------------------------------------------------------------------
 # Tools that generate code samples can use SERVERS to point to the correct domain
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa F405
-    {"url": "https://sett_elkol.com", "description": "Production server"}
+    {"url": "http://134.209.247.209", "description": "Production server"}
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------
