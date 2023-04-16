@@ -29,6 +29,8 @@ django-countries
 django-phonenumber-field==5.2.0
 phonenumbers==8.12.33
 drf-yasg
+dj-database-url==1.3.0
+
 
 
 Pillow
