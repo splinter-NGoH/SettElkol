@@ -5,7 +5,7 @@ from django.db.models import Avg
 from django.utils.translation import gettext_lazy as _
 
 from sett_elkol.common.models import TimeStampedUUIDModel
-# from sett_elkol.ratings.models import Rating
+from sett_elkol.rate.models import Rating
 
 # from .read_time_engine import ArticleReadTimeEngine
 
@@ -51,13 +51,13 @@ class Meal(TimeStampedUUIDModel):
     #     time_to_read = ArticleReadTimeEngine(self)
     #     return time_to_read.get_read_time()
 
-    # def get_average_rating(self):
-    #     if Rating.objects.all().count() > 0:
-    #         rating = (
-    #             Rating.objects.filter(article=self.pkid).all().aggregate(Avg("value"))
-    #         )
-    #         return round(rating["value__avg"], 1) if rating["value__avg"] else 0
-    #     return 0
+    def get_average_rating(self):
+        if Rating.objects.all().count() > 0:
+            rating = (
+                Rating.objects.filter(meal=self.pkid).all().aggregate(Avg("value"))
+            )
+            return round(rating["value__avg"], 1) if rating["value__avg"] else 0
+        return 0
 
 
 class MealViews(TimeStampedUUIDModel):

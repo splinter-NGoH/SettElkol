@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 
 class MealListAPIView(generics.ListAPIView):
     serializer_class = MealSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
     queryset = Meal.objects.all()
     renderer_classes = (MealsJSONRenderer,)
     pagination_class = MealPagination
@@ -41,9 +41,9 @@ class MealListAPIView(generics.ListAPIView):
 
 class MealTrendingListAPIView(generics.ListAPIView):
     serializer_class = MealSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
     queryset = Meal.objects.all()
     renderer_classes = (MealsJSONRenderer,)
     pagination_class = MealPagination

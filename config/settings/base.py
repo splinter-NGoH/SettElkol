@@ -46,8 +46,13 @@ import dj_database_url
 DATABASES = {}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
+# DATABASES['default'] = dj_database_url.config(
+#     default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
+#     conn_max_age=600,
+#     conn_health_checks=True,
+# )
 DATABASES['default'] = dj_database_url.config(
-    default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
+    default="postgres://postgres:Casherboy1@127.0.0.1:5432/sett_elkoll",
     conn_max_age=600,
     conn_health_checks=True,
 )
@@ -337,15 +342,15 @@ SIMPLE_JWT = {
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
-    "USERNAME_CHANGED_EMAIL_CONFIMATION": True,
-    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SEND_CONFIRMATION_EMAIL": True,    
+    "USERNAME_CHANGED_EMAIL_CONFIMATION": False,
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": False,
+    "SEND_CONFIRMATION_EMAIL": False,    
     "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
     "SET_PASSWORD_RETYPE": True,
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
     "USERNAME_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
     "ACTIVATION_URL": "activate/{uid}/{token}",
-    "SEND_ACTIVATION_EMAIL": True,
+    "SEND_ACTIVATION_EMAIL": False,
     "SERIALIZERS": {
         "user_create": "sett_elkol.users.api.serializers.CreateUserSerializer",
         "user": "sett_elkol.users.api.serializers.UserSerializer",

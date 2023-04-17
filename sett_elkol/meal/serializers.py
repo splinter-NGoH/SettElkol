@@ -5,6 +5,7 @@ from sett_elkol.meal.models import Meal, MealViews
 # from sett_elkol.ratings.serializers import RatingSerializer
 
 from .custom_tag_field import TagRelatedField
+from sett_elkol.rate.serializers import RatingSerializer
 
 
 class MealViewsSerializer(serializers.ModelSerializer):
@@ -16,9 +17,9 @@ class MealViewsSerializer(serializers.ModelSerializer):
 class MealSerializer(serializers.ModelSerializer):
     chef_info = serializers.SerializerMethodField(read_only=True)
     banner_image = serializers.SerializerMethodField()
-    # ratings = serializers.SerializerMethodField()
-    # num_ratings = serializers.SerializerMethodField()
-    # average_rating = serializers.ReadOnlyField(source="get_average_rating")
+    ratings = serializers.SerializerMethodField()
+    num_ratings = serializers.SerializerMethodField()
+    average_rating = serializers.ReadOnlyField(source="get_average_rating")
     # likes = serializers.ReadOnlyField(source="article_reactions.likes")
     # dislikes = serializers.ReadOnlyField(source="article_reactions.dislikes")
     tagList = TagRelatedField(many=True, required=False, source="tags")
@@ -49,14 +50,14 @@ class MealSerializer(serializers.ModelSerializer):
             "chef_photo": obj.chef_user.chef.chef_photo.url,    
         }
 
-    # def get_ratings(self, obj):
-    #     reviews = obj.article_ratings.all()
-    #     serializer = RatingSerializer(reviews, many=True)
-    #     return serializer.data
+    def get_ratings(self, obj):
+        reviews = obj.meal_ratings.all()
+        serializer = RatingSerializer(reviews, many=True)
+        return serializer.data
 
-    # def get_num_ratings(self, obj):
-    #     num_reviews = obj.article_ratings.all().count()
-    #     return num_reviews
+    def get_num_ratings(self, obj):
+        num_reviews = obj.meal_ratings.all().count()
+        return num_reviews
 
     # def get_comments(self, obj):
     #     comments = obj.comments.all()
@@ -80,6 +81,9 @@ class MealSerializer(serializers.ModelSerializer):
             "banner_image",
             "chef_info",
             "views",
+            "ratings",
+            "num_ratings",
+            "average_rating",
             "created_at",
             "updated_at",
         ]
