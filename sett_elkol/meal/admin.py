@@ -10,6 +10,19 @@ class MealAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Meal, MealAdmin)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ["pkid", "title", "slug", "description"]
+    list_display_links = ["pkid", "title"]
+
+
+admin.site.register(models.Category, CategoryAdmin)
+class WarningsAdmin(admin.ModelAdmin):
+    list_display = ["pkid", "title", "slug", "body"]
+    list_display_links = ["pkid", "title"]
+
+
+admin.site.register(models.ListofWarnings, WarningsAdmin)
+
 class TagAdmin(admin.ModelAdmin):
     list_display = ["pkid", "tag", "slug"]
     list_display_links = ["pkid", "tag"]
