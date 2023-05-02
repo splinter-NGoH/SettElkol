@@ -60,6 +60,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
         ## You can add more User model's attributes like username,email etc. in the data dictionary like this.
         data['user_type'] = self.user.user_type
+        data['first_name'] = self.user.first_name
+        data['last_name'] = self.user.last_name
+        data['email'] = self.user.email
+        data['username'] = self.user.username
         return data
 
 
