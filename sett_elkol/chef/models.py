@@ -38,7 +38,7 @@ class Chef(TimeStampedUUIDModel):
         default="Ciro",
         blank=False,
         null=False,
-    )
+    ) 
     age = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=255,blank=True,null=True)
     university = models.CharField(max_length=255, blank=True,null=True)

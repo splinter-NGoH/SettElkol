@@ -5,7 +5,7 @@ from .views import (
     CustomerListAPIView,
     UpdateCustomerAPIView,
     CustomerProfileAPIView,
-)
+)  
 
 urlpatterns = [
     path(

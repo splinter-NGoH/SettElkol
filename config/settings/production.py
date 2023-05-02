@@ -6,7 +6,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = "bbrxnjnjnkjnjknjnlnlknksadasdas"
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["134.209.247.209"]
+ALLOWED_HOSTS = ["*"]
 # DATABASES
 # ------------------------------------------------------------------------------
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405

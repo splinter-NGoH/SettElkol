@@ -9,7 +9,7 @@ from sett_elkol.rate.models import Rating
 
 # from .read_time_engine import ArticleReadTimeEngine
 
-User = get_user_model()
+User = get_user_model() 
 
 class Category(TimeStampedUUIDModel):
     title = models.CharField(verbose_name=_("title"), max_length=250)

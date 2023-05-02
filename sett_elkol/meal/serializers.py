@@ -8,7 +8,7 @@ from .custom_tag_field import TagRelatedField
 from sett_elkol.rate.serializers import RatingSerializer
 
 
-class MealViewsSerializer(serializers.ModelSerializer):
+class MealViewsSerializer(serializers.ModelSerializer): 
     class Meta:
         model = MealViews
         exclude = ["updated_at", "pkid"]
@@ -38,7 +38,7 @@ class MealSerializer(serializers.ModelSerializer):
     # comments = serializers.SerializerMethodField()
     # num_comments = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
-    updated_at = serializers.SerializerMethodField()
+    updated_at = serializers.SerializerMethodField() 
 
     def get_banner_image(self, obj):
         return obj.banner_image.url
@@ -101,12 +101,12 @@ class MealSerializer(serializers.ModelSerializer):
             "ratings",
             "num_ratings",
             "average_rating",
-            "created_at",
+            "created_at", 
             "updated_at",
         ]
 
 
-class MealCreateSerializer(serializers.ModelSerializer):
+class MealCreateSerializer(serializers.ModelSerializer): 
     tags = TagRelatedField(many=True, required=False)
     banner_image = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()

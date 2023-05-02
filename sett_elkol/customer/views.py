@@ -16,7 +16,7 @@ from .pagination import CustomerPagination
 from .renderers import CustomerJSONRenderer, CustomersJSONRenderer
 from .serializers import  CustomerSerializer, UpdateCustomerSerializer
 
-User = get_user_model()
+User = get_user_model() 
 
 
 class CustomerListAPIView(generics.ListAPIView):

@@ -46,7 +46,7 @@ class Customer(TimeStampedUUIDModel):
     customer_photo = models.ImageField(
         verbose_name=_("customer photo"), default="/customer_default.png"
     )
-
+ 
     def __str__(self):
         return f"{self.user.username}'s customer"
 

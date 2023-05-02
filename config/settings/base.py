@@ -47,7 +47,7 @@ DATABASES = {}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES['default'] = dj_database_url.config(
-    default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
+    default="postgres://postgres:2220@127.0.0.1:5432/set_EL_Kol",
     conn_max_age=600,
     conn_health_checks=True,
 )
@@ -94,12 +94,15 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
     "djoser",
 
+    # "sett_elkol.carty",
+
 ]
 
 LOCAL_APPS = [
+    "sett_elkol.carty",
     "sett_elkol.users",
     "sett_elkol.common",
-    "sett_elkol.cart",
+    # "sett_elkol.cart",
     "sett_elkol.chef",
     "sett_elkol.customer",
     "sett_elkol.deliveryman",
@@ -110,6 +113,10 @@ LOCAL_APPS = [
     "sett_elkol.rate",
     "sett_elkol.shipment",
     "sett_elkol.trackorder",
+    # "sett_elkol.cartittem",
+    
+    
+    
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -332,8 +339,8 @@ SIMPLE_JWT = {
         "Bearer",
         "JWT",
     ),
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
     "SIGNING_KEY": "XSm8lLNS3Jl9zrOLGBN27QjnDPmaX05PRJtnEE9B7KUToG43AzE",
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),

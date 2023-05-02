@@ -10,3 +10,4 @@ class ChefAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Chef, ChefAdmin)
+
