@@ -47,7 +47,7 @@ DATABASES = {}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES['default'] = dj_database_url.config(
-    default="postgres://postgres:2220@127.0.0.1:5432/set_EL_Kol",
+    default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
     conn_max_age=600,
     conn_health_checks=True,
 )
