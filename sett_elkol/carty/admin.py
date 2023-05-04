@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import CartItem
+from . import models
 
 
-admin.site.register(CartItem)
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ["pkid", "meal", "item_name", "quantity", "price", "created_at"]
+    list_display_links = ["pkid", "meal"]
+
+
+admin.site.register(models.CartItem, CartItemAdmin)

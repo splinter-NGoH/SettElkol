@@ -6,22 +6,24 @@ from sett_elkol.common.models import TimeStampedUUIDModel
 
 User = get_user_model() 
 
-class CartItem(models.Model):
-    # STATUS_CHOICES = (
-    #     ('incart', 'In Cart'),
-    #     ('outcart', 'Out of Cart')
-    # )
+class CartItem(TimeStampedUUIDModel):
+    STATUS_CHOICES = (
+        ('incart', 'In Cart'),
+        ('outcart', 'Out of Cart')
+    )
     # pkid = models.UUIDField(default=UUID.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal , related_name="meal_cart_item", on_delete=models.CASCADE)
     item_name = models.CharField(max_length=255)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    # status = models.CharField(max_length=7, choices=STATUS_CHOICES, default='incart')
+    status = models.CharField(max_length=7, choices=STATUS_CHOICES, default='incart')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.quantity} x {self.item_name} ({self.user.username})"
+    def add_to_cart (self):
+        return self.quantity + 1
  
  
  

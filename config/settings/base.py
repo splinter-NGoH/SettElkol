@@ -113,7 +113,7 @@ LOCAL_APPS = [
     "sett_elkol.rate",
     "sett_elkol.shipment",
     "sett_elkol.trackorder",
-    # "sett_elkol.cartittem",
+    "sett_elkol.cart",
     
     
     

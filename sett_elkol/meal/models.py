@@ -11,7 +11,19 @@ from sett_elkol.rate.models import Rating
 
 User = get_user_model() 
 
-
+class Category(TimeStampedUUIDModel):
+    title = models.CharField(verbose_name=_("title"), max_length=250)
+    slug = AutoSlugField(populate_from="title", always_update=True, unique=True)
+    description = models.CharField(verbose_name=_("description"), max_length=255, null=True, blank=True)
+    body = models.TextField(verbose_name=_("meal content"), null=True, blank=True)
+    banner_image = models.ImageField(
+        verbose_name=_("banner image"), null=True, blank=True
+    )
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+    def __str__(self):
+        return f"{self.title}"
 class Tag(TimeStampedUUIDModel):
     tag = models.CharField(max_length=80)
     slug = models.SlugField(db_index=True, unique=True)
@@ -34,10 +46,12 @@ class Meal(TimeStampedUUIDModel):
     banner_image = models.ImageField(
         verbose_name=_("banner image"), default="/customer_default.jpg"
     )
-    tags = models.ManyToManyField(Tag, related_name="meals")
+    tags = models.ManyToManyField(Tag, related_name="meals", null=True, blank=True)
     views = models.IntegerField(verbose_name=_("meal views"), default=0)
     price = models.IntegerField(verbose_name=_("price"), default=0)
-
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, verbose_name=_("category"), related_name="meals_of_category", blank=True, null=True
+    )
     def __str__(self):
         return f"{self.chef_user.username}'s meal"
 
@@ -74,3 +88,19 @@ class MealViews(TimeStampedUUIDModel):
     class Meta:
         verbose_name = "Total views on Meal"
         verbose_name_plural = "Total Meal Views"
+
+class ListofWarnings(TimeStampedUUIDModel):
+    title = models.CharField(verbose_name=_("title"), max_length=250)
+    slug = AutoSlugField(populate_from="title", always_update=True, unique=True)
+    body = models.TextField(verbose_name=_("warning content"), null=True, blank=True)
+    banner_image = models.ImageField(
+        verbose_name=_("banner image"), null=True, blank=True
+    )
+    meal = models.ForeignKey(
+        Meal, related_name="meal_warnings", on_delete=models.CASCADE
+    )
+    class Meta:
+        verbose_name = "List of Warning on Meal"
+        verbose_name_plural = "List of Warnings"
+    def __str__(self):
+        return f"{self.title}"
