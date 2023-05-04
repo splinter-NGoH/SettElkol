@@ -99,7 +99,6 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "sett_elkol.carty",
     "sett_elkol.users",
     "sett_elkol.common",
     # "sett_elkol.cart",

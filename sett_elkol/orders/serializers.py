@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import OrderItems
 # from carty.models import price
-from sett_elkol.carty.serializers import CartItemSerializer
+# from sett_elkol.carty.serializers import CartItemSerializer
 
 User = get_user_model()
 
