@@ -129,20 +129,23 @@ class CartItemDeleteAPIView(generics.DestroyAPIView):
     queryset = CartItem.objects.all()
     lookup_field = "id"
     def delete(self, request, *args, **kwargs):
+        
         try:
-            cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user)
+            CartItem.objects.get(id=self.kwargs.get("id"), user=request.user.pkid).delete()
+            return Response(data={"data":"successful"})
+
+            # cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 
-        delete_operation = self.destroy(request)
-        data = {}
-        if delete_operation:
-            data["success"] = "Deletion was successful"
+        # delete_operation = self.destroy(request)
+        # data = {}
+        # if delete_operation:
+        #     data["success"] = "Deletion was successful"
 
-        else:
-            data["failure"] = "Deletion failed"
+        # else:
+        #     data["failure"] = "Deletion failed"
 
-        return Response(data=data)
 # class CartItemDeleteAPIView(generics.CreateAPIView):
 #     permission_classes = [
 #         permissions.IsAuthenticated,
