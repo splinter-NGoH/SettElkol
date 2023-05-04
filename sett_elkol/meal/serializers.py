@@ -30,7 +30,7 @@ class MealSerializer(serializers.ModelSerializer):
     ratings = serializers.SerializerMethodField()
     num_ratings = serializers.SerializerMethodField()
     average_rating = serializers.ReadOnlyField(source="get_average_rating")
-    category = serializers.CharField(source="category.slug")
+    # category = serializers.CharField(source="category.slug")
     list_of_warnings = serializers.SerializerMethodField()
     # likes = serializers.ReadOnlyField(source="article_reactions.likes")
     # dislikes = serializers.ReadOnlyField(source="article_reactions.dislikes")
