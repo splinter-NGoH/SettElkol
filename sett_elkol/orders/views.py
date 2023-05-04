@@ -2,29 +2,36 @@ from rest_framework import generics
 from .models import OrderDetails, OrderItems
 # from .serializers import OrderSerializer
 from rest_framework import filters, generics, permissions, status
-
+from rest_framework.response import Response
+from .serializers import OrderCreateSerializer, OrderListSerializer
 
 class OrderCreateAPIView(generics.CreateAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
     ]
-    # serializer_class = MealCreateSerializer
-    # renderer_classes = [MealJSONRenderer]
+    serializer_class = OrderCreateSerializer
 
-    # def create(self, request, *args, **kwargs):
-    #     user = request.user
-    #     if user.user_type != User.UserType.CHEF:
-    #         raise CreateMeal
-    #     data = request.data
-    #     data["chef_user"] = user.pkid
-    #     serializer = self.serializer_class(data=data, context={"request": request})
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     logger.info(
-    #         f"chef_user {serializer.data.get('title')} created by {user.username}"
-    #     )
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        data["chef_user"] = user.pkid
+        serializer = self.serializer_class(data=data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class OrderListAPIView(generics.ListAPIView):
+    serializer_class = OrderListSerializer
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
+    queryset = OrderDetails.objects.all()
+    # renderer_classes = (MealsJSONRenderer,)
+    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    # filterset_class = MealFilter
+    ordering_fields = ["created_at"]
 
 # class OrderList(generics.ListCreateAPIView):
 #     queryset = Order.objects.all()

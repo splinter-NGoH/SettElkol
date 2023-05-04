@@ -5,9 +5,19 @@ from .models import CartItem
 
 User = get_user_model()
 class CartItemSerializer(serializers.ModelSerializer): 
+    meal_id = serializers.CharField(source="meal.id")
     class Meta:
         model = CartItem
-        exclude = ["updated_at", "pkid"]
+        fields = ["id",
+                    "pkid",
+                    "user",
+                    "meal_id",
+                    "meal",
+                    "item_name",
+                    "quantity",
+                    "price",
+                    "status",
+                    "created_at"]
 
 
 # from rest_framework import serializers
