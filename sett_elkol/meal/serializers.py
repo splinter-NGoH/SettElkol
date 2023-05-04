@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from sett_elkol.meal.models import Meal, MealViews, ListofWarnings, Category
+from sett_elkol.meal.models import Meal, MealViews
 # from sett_elkol.comments.serializers import CommentListSerializer
 # from sett_elkol.ratings.serializers import RatingSerializer
 
@@ -13,25 +13,13 @@ class MealViewsSerializer(serializers.ModelSerializer):
         model = MealViews
         exclude = ["updated_at", "pkid"]
 
-class WarningSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = ListofWarnings
-        exclude = ["updated_at", "pkid"]
-
-class CategorySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Category
-        exclude = ["updated_at", "pkid"]
 class MealSerializer(serializers.ModelSerializer):
     chef_info = serializers.SerializerMethodField(read_only=True)
     banner_image = serializers.SerializerMethodField()
     ratings = serializers.SerializerMethodField()
     num_ratings = serializers.SerializerMethodField()
     average_rating = serializers.ReadOnlyField(source="get_average_rating")
-    category = serializers.CharField(source="category.slug")
-    list_of_warnings = serializers.SerializerMethodField()
     # likes = serializers.ReadOnlyField(source="article_reactions.likes")
     # dislikes = serializers.ReadOnlyField(source="article_reactions.dislikes")
     tagList = TagRelatedField(many=True, required=False, source="tags")
@@ -66,10 +54,7 @@ class MealSerializer(serializers.ModelSerializer):
         reviews = obj.meal_ratings.all()
         serializer = RatingSerializer(reviews, many=True)
         return serializer.data
-    def get_list_of_warnings(self, obj):
-        warnings = obj.meal_warnings.all()
-        serializer = WarningSerializer(warnings, many=True)
-        return serializer.data
+
     def get_num_ratings(self, obj):
         num_reviews = obj.meal_ratings.all().count()
         return num_reviews
@@ -93,10 +78,8 @@ class MealSerializer(serializers.ModelSerializer):
             "tagList",
             "description",
             "body",
-            "category",
             "banner_image",
             "chef_info",
-            "list_of_warnings",
             "views",
             "ratings",
             "num_ratings",

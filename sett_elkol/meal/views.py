@@ -8,7 +8,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from sett_elkol.meal.models import Meal, MealViews, Category, ListofWarnings
+from sett_elkol.meal.models import Meal, MealViews
 
 from .exceptions import UpdateMeal, CreateMeal, UpdateMealChef
 from .filters import MealFilter
@@ -19,8 +19,6 @@ from .serializers import (
     MealCreateSerializer,
     MealSerializer,
     MealUpdateSerializer,
-    CategorySerializer,
-    WarningSerializer,
 )
 from sett_elkol.users.models import User
 
@@ -28,30 +26,6 @@ User = get_user_model()
 
 logger = logging.getLogger(__name__)
 
-
-class WarningListAPIView(generics.ListAPIView):
-    serializer_class = WarningSerializer
-    # permission_classes = [
-    #     permissions.IsAuthenticated,
-    # ]
-    queryset = ListofWarnings.objects.all()
-    # renderer_classes = (MealsJSONRenderer,)
-    pagination_class = MealPagination
-    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    # filterset_class = MealFilter
-    ordering_fields = ["created_at"]
-
-class CategoriesListAPIView(generics.ListAPIView):
-    serializer_class = CategorySerializer
-    # permission_classes = [
-    #     permissions.IsAuthenticated,
-    # ]
-    queryset = Category.objects.all()
-    # renderer_classes = (MealsJSONRenderer,)
-    pagination_class = MealPagination
-    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    # filterset_class = MealFilter
-    ordering_fields = ["created_at"]
 
 class MealListAPIView(generics.ListAPIView):
     serializer_class = MealSerializer

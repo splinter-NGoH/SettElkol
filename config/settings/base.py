@@ -46,16 +46,16 @@ import dj_database_url
 DATABASES = {}
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES['default'] = dj_database_url.config(
-    default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
-    conn_max_age=600,
-    conn_health_checks=True,
-)
 # DATABASES['default'] = dj_database_url.config(
-#     default="postgres://postgres:Casherboy1@127.0.0.1:5432/sett_elkoll",
+#     default="postgres://mansy:4321Actioon@127.0.0.1:5432/settelkoll",
 #     conn_max_age=600,
 #     conn_health_checks=True,
 # )
+DATABASES['default'] = dj_database_url.config(
+    default="postgres://postgres:Casherboy1@127.0.0.1:5432/sett_elkoll",
+    conn_max_age=600,
+    conn_health_checks=True,
+)
 # DATABASES = os.getenv("DATABASE_URL")
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD

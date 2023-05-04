@@ -7,8 +7,6 @@ from .views import (
     MealListAPIView,
     MealTrendingListAPIView,
     update_chef_api_view,
-    CategoriesListAPIView,
-    WarningListAPIView,
 )
 
 urlpatterns = [
@@ -18,7 +16,4 @@ urlpatterns = [
     path("details/<slug:slug>/", MealDetailView.as_view(), name="meal-detail"),
     path("delete/<slug:slug>/", MealDeleteAPIView.as_view(), name="delete-meal"),
     path("update/<slug:slug>/", update_chef_api_view, name="update-meal"),
-    path("categories/", CategoriesListAPIView.as_view(), name="all-categories"),
-    path("warnings/", WarningListAPIView.as_view(), name="all-warnings"),
-
 ]
