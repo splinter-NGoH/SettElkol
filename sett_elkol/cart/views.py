@@ -83,6 +83,7 @@ class CartItemCreateAPIView(generics.CreateAPIView):
             cur_cart_item.quantity +=1
             cur_cart_item.save()
             return Response({"id":cur_cart_item.id,
+                             "meal":cur_cart_item.meal,
                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
 
         except CartItem.DoesNotExist:
@@ -113,6 +114,7 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
             cur_cart_item.quantity -=1
             cur_cart_item.save()
             return Response({"cart_item_id":cur_cart_item.id,
+                             "meal":cur_cart_item.meal,
                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
 
         except CartItem.DoesNotExist:
@@ -122,11 +124,11 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
 class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = CartItem.objects.all()
-    lookup_field = "id"
+    lookup_field = "meal"
 
     def delete(self, request, *args, **kwargs):
         try:
-            cart_item = CartItem.objects.get(id=self.kwargs.get("id"))
+            cart_item = CartItem.objects.get(meal=self.kwargs.get("meal"), user=request.user.pkid)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 
