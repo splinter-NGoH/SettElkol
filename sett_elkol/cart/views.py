@@ -134,7 +134,7 @@ class CartItemDeleteAPIView(generics.DestroyAPIView):
             CartItem.objects.get(id=self.kwargs.get("id"), user=request.user.pkid).delete()
             return Response(data={"data":"successful"})
 
-            # cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user)
+            # cart_item = CartItem.objasdsects.get(id=self.kwargs.get("id"), user=request.user)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 
