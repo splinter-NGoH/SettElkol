@@ -77,8 +77,9 @@ class CartItemCreateAPIView(generics.CreateAPIView):
         user = request.user
         data = request.data
         data["user"] = user.pkid
-        meal = Meal.objects.get(id=data["meal"])
         try:
+            meal = Meal.objects.get(id=data["meal"])
+
             cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
             cur_cart_item.quantity +=1
             cur_cart_item.save()
@@ -87,10 +88,12 @@ class CartItemCreateAPIView(generics.CreateAPIView):
                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
 
         except CartItem.DoesNotExist:
+            meal = Meal.objects.get(id=data["meal"])
+
             data["item_name"] = meal.title
             data["quantity"] = 1
             data["price"] = meal.price
-            data["meal"] = meal.id
+            data["meal"] = meal.pkid
             serializer = self.serializer_class(data=data, context={"request": request})
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -125,10 +128,9 @@ class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = CartItem.objects.all()
     lookup_field = "id"
-
     def delete(self, request, *args, **kwargs):
         try:
-            cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user.pkid)
+            cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 

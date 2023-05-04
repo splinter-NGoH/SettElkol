@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from sett_elkol.common.models import TimeStampedUUIDModel
 # from rest_framework.authtoken.models import Token
-
 from sett_elkol.cart.models import CartItem
 User = get_user_model() 
 
