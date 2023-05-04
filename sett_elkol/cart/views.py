@@ -82,7 +82,7 @@ class CartItemCreateAPIView(generics.CreateAPIView):
             cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
             cur_cart_item.quantity +=1
             cur_cart_item.save()
-            return Response({"cart_item_id":cur_cart_item.id,
+            return Response({"id":cur_cart_item.id,
                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
 
         except CartItem.DoesNotExist:

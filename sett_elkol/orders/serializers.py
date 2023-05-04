@@ -1,21 +1,26 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Order
+from .models import OrderItems
 # from carty.models import price
 from sett_elkol.carty.serializers import CartItemSerializer
 
 User = get_user_model()
 
-class OrderSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
-    items = CartItemSerializer(many=True, read_only=True)
-    # total_price = serializers.PrimaryKeyRelatedField(queryset=price.objects.all())
+class OrderCreateSerializer(serializers.ModelSerializer): 
+    banner_image = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
 
     class Meta:
-        model = Order
-        fields = ['id', 'user', 'items',  'created_at']
-        read_only_fields = ['id', 'items', 'created_at']
+        model = OrderItems
+        exclude = ["updated_at", "pkid"]
 
+    def get_created_at(self, obj):
+        now = obj.created_at
+        formatted_date = now.strftime("%m/%d/%Y, %H:%M:%S")
+        return formatted_date
+
+    def get_banner_image(self, obj):
+        return obj.banner_image.url
 
 
 

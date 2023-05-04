@@ -8,20 +8,29 @@ from sett_elkol.common.models import TimeStampedUUIDModel
 from sett_elkol.carty.models import CartItem
 User = get_user_model() 
 
-class Order(models.Model):
+class OrderDetails(TimeStampedUUIDModel):
     STATUS_CHOICES = (
         ('payed', 'payed'),
         ('unpayed', 'unpayed')
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cartItem = models.ManyToManyField(CartItem)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_oreders")
     status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='unpayed')
-    total_price = models.CharField(max_length=254)
-    created_at = models.DateTimeField(auto_now_add=True)
+    total_price = models.CharField(max_length=254, null=True, blank=True)
 
     def __str__(self):
-        return f"Order #{self.pkid}"
+        return f"Order for user #{self.user.username}"
 
+
+
+class OrderItems(TimeStampedUUIDModel):
+    parent = models.ForeignKey(OrderDetails, on_delete=models.CASCADE, related_name="parent_items")
+    cartItem = models.ForeignKey(CartItem, on_delete=models.CASCADE, related_name="item_code")
+    rate = models.DecimalField(decimal_places=2, max_digits="20")
+    quantity = models.IntegerField()
+    banner_image = models.ImageField()
+
+    def __str__(self):
+        return f"Order #{self.cartItem}"
 
     # def save(self, *args, **kwargs):
     #     self.total = sum(CartItem.quantity * CartItem.price for item in self.items.all())

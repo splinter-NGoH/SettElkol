@@ -1,14 +1,38 @@
 from rest_framework import generics
-from .models import Order
-from .serializers import OrderSerializer
+from .models import OrderDetails, OrderItems
+# from .serializers import OrderSerializer
+from rest_framework import filters, generics, permissions, status
 
-class OrderList(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
 
-class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class OrderCreateAPIView(generics.CreateAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    # serializer_class = MealCreateSerializer
+    # renderer_classes = [MealJSONRenderer]
+
+    # def create(self, request, *args, **kwargs):
+    #     user = request.user
+    #     if user.user_type != User.UserType.CHEF:
+    #         raise CreateMeal
+    #     data = request.data
+    #     data["chef_user"] = user.pkid
+    #     serializer = self.serializer_class(data=data, context={"request": request})
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     logger.info(
+    #         f"chef_user {serializer.data.get('title')} created by {user.username}"
+    #     )
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# class OrderList(generics.ListCreateAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializer
+
+# class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializer
 
 
 # from rest_framework import generics, mixins, status
