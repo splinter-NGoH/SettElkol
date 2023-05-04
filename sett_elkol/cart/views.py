@@ -124,12 +124,11 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
 class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = CartItem.objects.all()
-    lookup_field = "meal"
+    lookup_field = "id"
 
     def delete(self, request, *args, **kwargs):
         try:
-            meal = Meal.objects.get(id=self.kwargs.get("meal"))
-            cart_item = CartItem.objects.get(meal=meal.pkid, user=request.user.pkid)
+            cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user.pkid)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 
