@@ -127,11 +127,10 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
 class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = CartItem.objects.all()
-    lookup_field = "id"
     def delete(self, request, *args, **kwargs):
         
         try:
-            CartItem.objects.get(id=self.kwargs.get("id"), user=request.user.pkid).delete()
+            CartItem.objects.get(id=request.data.get("id"), user=request.user).delete()
             return Response(data={"data":"successful"})
 
             # cart_item = CartItem.objasdsects.get(id=self.kwargs.get("id"), user=request.user)
