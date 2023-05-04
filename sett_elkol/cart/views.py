@@ -16,6 +16,7 @@ from .serializers import (
 )
 from sett_elkol.meal.models import Meal
 from .models import CartItem
+from .permissions import IsOwnerOrReadOnly
 # class CartItemAPIView(generics.ListAPIView):
 #     serializer_class = CartItemSerializer
 #     # permission_classes = [
@@ -94,4 +95,68 @@ class CartItemCreateAPIView(generics.CreateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+
+class CartItemRemoveAPIView(generics.CreateAPIView):
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    serializer_class = CartItemCreateSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        data = request.data
+        data["user"] = user.pkid
+        meal = Meal.objects.get(id=data["meal"])
+        try:
+            cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
+            cur_cart_item.quantity -=1
+            cur_cart_item.save()
+            return Response({"cart_item_id":cur_cart_item.id,
+                             "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
+
+        except CartItem.DoesNotExist:
+            raise NotFound
+
+
+class CartItemDeleteAPIView(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    queryset = CartItem.objects.all()
+    lookup_field = "id"
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            cart_item = CartItem.objects.get(id=self.kwargs.get("id"))
+        except CartItem.DoesNotExist:
+            raise NotFound("That Cart Item does not exist in Cart")
+
+        delete_operation = self.destroy(request)
+        data = {}
+        if delete_operation:
+            data["success"] = "Deletion was successful"
+
+        else:
+            data["failure"] = "Deletion failed"
+
+        return Response(data=data)
+# class CartItemDeleteAPIView(generics.CreateAPIView):
+#     permission_classes = [
+#         permissions.IsAuthenticated,
+#     ]
+#     serializer_class = CartItemCreateSerializer
+
+#     def create(self, request, *args, **kwargs):
+#         user = request.user
+#         data = request.data
+#         data["user"] = user.pkid
+#         meal = Meal.objects.get(id=data["meal"])
+#         try:
+#             cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
+#             cur_cart_item.quantity -=1
+#             cur_cart_item.save()
+#             return Response({"cart_item_id":cur_cart_item.id,
+#                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
+
+#         except CartItem.DoesNotExist:
+#             raise NotFound
 

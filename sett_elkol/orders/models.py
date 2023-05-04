@@ -9,19 +9,19 @@ from sett_elkol.carty.models import CartItem
 User = get_user_model() 
 
 class Order(models.Model):
-    # STATUS_CHOICES = (
-    #     ('payed', 'payed'),
-    #     ('unpayed', 'unpayed')
-    # )
-
+    STATUS_CHOICES = (
+        ('payed', 'payed'),
+        ('unpayed', 'unpayed')
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cartItem = models.ManyToManyField(CartItem)
-    # status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='payed')
-    # total_price = models.ForeignKey(CartItem.price, on_delete=models.CASCADE)
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='unpayed')
+    total_price = models.CharField(max_length=254)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Order #{self.pk}"
+        return f"Order #{self.pkid}"
+
 
     # def save(self, *args, **kwargs):
     #     self.total = sum(CartItem.quantity * CartItem.price for item in self.items.all())
