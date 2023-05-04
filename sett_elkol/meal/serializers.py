@@ -93,7 +93,7 @@ class MealSerializer(serializers.ModelSerializer):
             "tagList",
             "description",
             "body",
-            "category",
+            # "category",
             "banner_image",
             "chef_info",
             "list_of_warnings",
