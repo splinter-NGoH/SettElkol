@@ -114,7 +114,7 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
         meal = Meal.objects.get(id=data["meal"])
         try:
             cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
-            if cur_cart_item.quantity>0:
+            if cur_cart_item.quantity>1:
                 cur_cart_item.quantity -=1
                 cur_cart_item.save()
                 return Response({"cart_item_id":cur_cart_item.id,
