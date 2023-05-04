@@ -31,7 +31,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartItemCreateSerializer(serializers.ModelSerializer): 
     created_at = serializers.SerializerMethodField()
-    meal_id = serializers.CharField(source="meal.id")
+    meal_id = serializers.CharField(source="meal.id", read_only=True)
     class Meta:
         model = CartItem
         exclude = ["updated_at", "pkid"]
