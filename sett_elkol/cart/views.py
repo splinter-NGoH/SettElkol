@@ -114,14 +114,12 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
         meal = Meal.objects.get(id=data["meal"])
         try:
             cur_cart_item = CartItem.objects.get(user=request.user.pkid, meal=meal.pkid, status="incart")
-            if cur_cart_item.quantity>1:
-                cur_cart_item.quantity -=1
-                cur_cart_item.save()
-                return Response({"cart_item_id":cur_cart_item.id,
+            cur_cart_item.quantity -=1
+            cur_cart_item.save()
+            return Response({"cart_item_id":cur_cart_item.id,
                              "meal":cur_cart_item.meal.id,
                              "quantity": cur_cart_item.quantity}, status=status.HTTP_201_CREATED)
-            else:
-                cur_cart_item.delete()
+
         except CartItem.DoesNotExist:
             raise NotFound
 
@@ -129,24 +127,25 @@ class CartItemRemoveAPIView(generics.CreateAPIView):
 class CartItemDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     queryset = CartItem.objects.all()
+    lookup_field = "id"
     def delete(self, request, *args, **kwargs):
         
         try:
-            CartItem.objects.get(id=request.data.get("id"), user=request.user).delete()
-            return Response(data={"data":"successful"})
+            CartItem.objects.filter(id=self.kwargs.get("id")).delete()
 
-            # cart_item = CartItem.objasdsects.get(id=self.kwargs.get("id"), user=request.user)
+            # cart_item = CartItem.objects.get(id=self.kwargs.get("id"), user=request.user)
         except CartItem.DoesNotExist:
             raise NotFound("That Cart Item does not exist in Cart")
 
-        # delete_operation = self.destroy(request)
-        # data = {}
-        # if delete_operation:
-        #     data["success"] = "Deletion was successful"
+        delete_operation = self.destroy(request)
+        data = {}
+        if delete_operation:
+            data["success"] = "Deletion was successful"
 
-        # else:
-        #     data["failure"] = "Deletion failed"
+        else:
+            data["failure"] = "Deletion failed"
 
+        return Response(data=data)
 # class CartItemDeleteAPIView(generics.CreateAPIView):
 #     permission_classes = [
 #         permissions.IsAuthenticated,
